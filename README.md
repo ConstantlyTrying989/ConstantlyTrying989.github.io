@@ -1,0 +1,166 @@
+[README.md](https://github.com/user-attachments/files/25900762/README.md)
+# Portfolio
+
+My personal portfolio website showcasing physics projects, data science work, and analytical skills.
+
+**Live site:** https://yourusername.github.io
+
+## About
+
+First-year physics student passionate about data science and statistical analysis. This portfolio highlights projects combining physics fundamentals with modern data analysis techniques, machine learning, and statistical methods.
+
+## Features
+
+- **Clean, modern design** - Dark theme with responsive layout
+- **Project showcase** - Highlight your best work with descriptions, tech stack, and links
+- **Skills section** - Organized by category (Languages, Data Science, Tools, etc.)
+- **Fully responsive** - Works on desktop, tablet, and mobile
+- **Fast & lightweight** - Pure HTML/CSS, no external dependencies
+- **Easy to customize** - Simple HTML structure, easy to edit
+
+## How to Use This Portfolio
+
+### View Online
+Simply visit: `https://yourusername.github.io`
+
+### Customize Locally
+
+1. **Edit `index.html`** (or whatever you named the file)
+   - Open in any text editor (VS Code, Notepad, etc.)
+   - Update the following sections:
+     - Your name and subtitle
+     - About section with your bio
+     - Projects with descriptions, tech tags, and GitHub links
+     - Skills and tools
+     - Contact information and social links
+
+2. **Add your projects**
+   - Find the "PROJECTS SECTION" in the HTML
+   - Edit project title, description, tech tags, and links
+   - Each project card has this structure:
+     ```html
+     <div class="project-card">
+         <h3 class="project-title">Your Project Name</h3>
+         <p class="project-description">Description of what you built</p>
+         <div class="project-tech">
+             <span class="tech-tag">Python</span>
+             <span class="tech-tag">Pandas</span>
+         </div>
+         <div class="project-links">
+             <a href="github-repo-url" class="project-link">GitHub</a>
+             <a href="demo-url" class="project-link">Demo</a>
+         </div>
+     </div>
+     ```
+
+3. **Update your contact links**
+   - Email: `mailto:your.email@example.com`
+   - GitHub: `https://github.com/yourusername`
+   - LinkedIn: `https://linkedin.com/in/yourusername`
+   - CV link: Link to your resume PDF
+
+4. **Upload to GitHub**
+   - Save your changes locally
+   - Upload/commit the updated file to your GitHub repo
+   - Visit `https://yourusername.github.io` to see changes live (may take 1-2 minutes to update)
+
+## File Structure
+
+```
+yourusername.github.io/
+├── index.html          # Main portfolio page
+├── README.md          # This file
+└── LICENSE            # License file
+```
+
+## Customization Tips
+
+### Colors
+The color scheme uses CSS variables. To change colors, find the `:root` section in the `<style>` tag:
+```css
+:root {
+    --primary: #0f172a;
+    --accent: #0ea5e9;
+    --text: #e2e8f0;
+}
+```
+
+### Fonts
+Uses Google Fonts (Merriweather for body, JetBrains Mono for code). Change in the `<link>` tag if desired.
+
+### Add More Projects
+Copy and paste the entire `<div class="project-card">` block and edit the content.
+
+### Change Theme
+All styling is in the `<style>` section. Modify CSS variables and properties to customize appearance.
+
+## Technologies Used
+
+- **HTML5** - Semantic markup
+- **CSS3** - Flexbox, Grid, animations, gradients
+- **Google Fonts** - Merriweather & JetBrains Mono
+- **Hosted on** - GitHub Pages (free, built-in to GitHub)
+
+## Tips for Content
+
+### Project Descriptions
+Write clear, concise descriptions that answer:
+- What did you build?
+- Why did you build it?
+- What was the result/outcome?
+
+✅ Good: "Built a Python ML model to classify iris flowers using scikit-learn, achieving 96% accuracy with cross-validation"  
+❌ Poor: "Did a machine learning project"
+
+### Tech Tags
+List the actual tools and languages you used:
+- Python, R, JavaScript
+- Pandas, NumPy, SciPy
+- Machine Learning, Statistics, Data Visualization
+- Git, GitHub, Jupyter
+
+### Project Links
+- **GitHub**: Link to your repo (e.g., `https://github.com/yourusername/project-name`)
+- **Demo**: Live demo, Jupyter notebook, or PDF report
+- **Report**: Write-up or analysis document
+
+## How to Host on GitHub Pages
+
+1. Create a GitHub account at https://github.com
+2. Create a new repository named: `yourusername.github.io`
+3. Upload this `index.html` file
+4. Your site is live at: `https://yourusername.github.io`
+
+**That's it!** No server costs, no hosting fees. Completely free.
+
+## Updating Your Site
+
+1. Edit `index.html` locally
+2. Commit and push to your GitHub repo (or upload the updated file via GitHub's web interface)
+3. Changes go live in 1-2 minutes
+
+## Browser Support
+
+Works on all modern browsers:
+- Chrome/Edge
+- Firefox
+- Safari
+- Mobile browsers
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+You are free to use this template for your portfolio. Attribution is appreciated but not required.
+
+## Questions or Issues?
+
+- Check the HTML comments in `index.html` for help
+- Edit the content between the HTML tags
+- Save, commit, and refresh your GitHub Pages site
+
+---
+
+**Built with HTML & CSS. Hosted on GitHub Pages.**
+
+Good luck with your portfolio! 🚀
