@@ -3,80 +3,39 @@
 
 My personal portfolio website showcasing physics projects, data science work, and analytical skills.
 
-**Live site:** https://yourusername.github.io
+**Live site:** https://ConstantlyTrying989.github.io
 
 ## About
 
-First-year physics student passionate about data science and statistical analysis. This portfolio highlights projects combining physics fundamentals with modern data analysis techniques, machine learning, and statistical methods.
+First-year physics student passionate about data science and statistical analysis. This portfolio highlights projects that combine fundamental physics with modern data analysis techniques, machine learning, and statistical methods.
 
 ## Features
 
 - **Clean, modern design** - Dark theme with responsive layout
 - **Project showcase** - Highlight your best work with descriptions, tech stack, and links
-- **Skills section** - Organized by category (Languages, Data Science, Tools, etc.)
+- **Skills section** - Organised by category (Languages, Data Science, Tools, etc.)
 - **Fully responsive** - Works on desktop, tablet, and mobile
 - **Fast & lightweight** - Pure HTML/CSS, no external dependencies
-- **Easy to customize** - Simple HTML structure, easy to edit
+- **Easy to customise** - Simple HTML structure, easy to edit
 
 ## How to Use This Portfolio
 
 ### View Online
-Simply visit: `https://yourusername.github.io`
-
-### Customize Locally
-
-1. **Edit `index.html`** (or whatever you named the file)
-   - Open in any text editor (VS Code, Notepad, etc.)
-   - Update the following sections:
-     - Your name and subtitle
-     - About section with your bio
-     - Projects with descriptions, tech tags, and GitHub links
-     - Skills and tools
-     - Contact information and social links
-
-2. **Add your projects**
-   - Find the "PROJECTS SECTION" in the HTML
-   - Edit project title, description, tech tags, and links
-   - Each project card has this structure:
-     ```html
-     <div class="project-card">
-         <h3 class="project-title">Your Project Name</h3>
-         <p class="project-description">Description of what you built</p>
-         <div class="project-tech">
-             <span class="tech-tag">Python</span>
-             <span class="tech-tag">Pandas</span>
-         </div>
-         <div class="project-links">
-             <a href="github-repo-url" class="project-link">GitHub</a>
-             <a href="demo-url" class="project-link">Demo</a>
-         </div>
-     </div>
-     ```
-
-3. **Update your contact links**
-   - Email: `mailto:your.email@example.com`
-   - GitHub: `https://github.com/yourusername`
-   - LinkedIn: `https://linkedin.com/in/yourusername`
-   - CV link: Link to your resume PDF
-
-4. **Upload to GitHub**
-   - Save your changes locally
-   - Upload/commit the updated file to your GitHub repo
-   - Visit `https://yourusername.github.io` to see changes live (may take 1-2 minutes to update)
+Simply visit: `https://ConstantlyTrying989.github.io`
 
 ## File Structure
 
 ```
-yourusername.github.io/
+ConstantlyTrying989.github.io/
 ├── index.html          # Main portfolio page
 ├── README.md          # This file
 └── LICENSE            # License file
 ```
 
-## Customization Tips
+## Customisation Tips
 
 ### Colors
-The color scheme uses CSS variables. To change colors, find the `:root` section in the `<style>` tag:
+The colour scheme uses CSS variables. To change colours, find the `:root` section in the `<style>` tag:
 ```css
 :root {
     --primary: #0f172a;
@@ -92,7 +51,7 @@ Uses Google Fonts (Merriweather for body, JetBrains Mono for code). Change in th
 Copy and paste the entire `<div class="project-card">` block and edit the content.
 
 ### Change Theme
-All styling is in the `<style>` section. Modify CSS variables and properties to customize appearance.
+All styling is in the `<style>` section. Modify CSS variables and properties to customise appearance.
 
 ## Technologies Used
 
@@ -116,13 +75,8 @@ Write clear, concise descriptions that answer:
 List the actual tools and languages you used:
 - Python, R, JavaScript
 - Pandas, NumPy, SciPy
-- Machine Learning, Statistics, Data Visualization
+- Machine Learning, Statistics, Data Visualisation
 - Git, GitHub, Jupyter
-
-### Project Links
-- **GitHub**: Link to your repo (e.g., `https://github.com/yourusername/project-name`)
-- **Demo**: Live demo, Jupyter notebook, or PDF report
-- **Report**: Write-up or analysis document
 
 ## How to Host on GitHub Pages
 
