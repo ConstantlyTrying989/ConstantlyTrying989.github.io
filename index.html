@@ -20,7 +20,12 @@
             --text: #e2e8f0;
             --text-dim: #cbd5e1;
             --border: #334155;
-            --bg-grid: rgba(15, 23, 42, 0.5);
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow-x: hidden;
         }
 
         body {
@@ -28,36 +33,32 @@
             background: linear-gradient(135deg, var(--primary) 0%, #1a1f35 100%);
             color: var(--text);
             line-height: 1.6;
-            overflow-x: hidden;
         }
 
-        /* Grid background pattern */
-        body::before {
-            content: '';
+        /* Particle Canvas */
+        #particleCanvas {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: 
-                linear-gradient(0deg, transparent 24%, rgba(14, 165, 233, 0.05) 25%, rgba(14, 165, 233, 0.05) 26%, transparent 27%, transparent 74%, rgba(14, 165, 233, 0.05) 75%, rgba(14, 165, 233, 0.05) 76%, transparent 77%, transparent),
-                linear-gradient(90deg, transparent 24%, rgba(14, 165, 233, 0.05) 25%, rgba(14, 165, 233, 0.05) 26%, transparent 27%, transparent 74%, rgba(14, 165, 233, 0.05) 75%, rgba(14, 165, 233, 0.05) 76%, transparent 77%, transparent);
-            background-size: 50px 50px;
-            pointer-events: none;
-            z-index: 1;
+            z-index: 0;
+            display: block;
         }
 
-        /* Content sits above background */
-        main {
+        /* Content overlay */
+        .content-wrapper {
             position: relative;
-            z-index: 2;
+            z-index: 1;
         }
 
         /* Header */
         header {
             padding: 60px 20px;
             text-align: center;
-            border-bottom: 1px solid var(--border);
+            border-bottom: 1px solid rgba(51, 65, 85, 0.5);
+            backdrop-filter: blur(10px);
+            background: rgba(15, 23, 42, 0.7);
             animation: slideDown 0.8s ease-out;
         }
 
@@ -103,7 +104,7 @@
             text-decoration: none;
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.9rem;
-            transition: color 0.3s ease;
+            transition: color 0.3s ease, text-shadow 0.3s ease;
             border-bottom: 2px solid transparent;
             padding-bottom: 3px;
         }
@@ -111,6 +112,7 @@
         .nav-links a:hover {
             color: var(--accent-alt);
             border-bottom-color: var(--accent-alt);
+            text-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
         }
 
         /* Container */
@@ -118,6 +120,7 @@
             max-width: 900px;
             margin: 0 auto;
             padding: 60px 20px;
+            backdrop-filter: blur(5px);
         }
 
         /* Sections */
@@ -125,6 +128,11 @@
             margin-bottom: 80px;
             animation: fadeIn 0.8s ease-out forwards;
             opacity: 0;
+            background: rgba(15, 23, 42, 0.6);
+            padding: 40px;
+            border-radius: 12px;
+            border: 1px solid rgba(14, 165, 233, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
 
         section:nth-child(1) { animation-delay: 0.2s; }
@@ -147,7 +155,7 @@
             font-size: 2rem;
             margin-bottom: 30px;
             color: var(--accent);
-            border-bottom: 2px solid var(--border);
+            border-bottom: 2px solid rgba(14, 165, 233, 0.3);
             padding-bottom: 15px;
             position: relative;
         }
@@ -159,7 +167,7 @@
             left: 0;
             height: 2px;
             background: linear-gradient(90deg, var(--accent), var(--accent-alt), transparent);
-            width: 60px;
+            width: 80px;
         }
 
         /* About Section */
@@ -179,13 +187,14 @@
         }
 
         .project-card {
-            background: linear-gradient(135deg, var(--secondary) 0%, rgba(30, 41, 59, 0.8) 100%);
-            border: 1px solid var(--border);
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(30, 41, 59, 0.6) 100%);
+            border: 1px solid rgba(14, 165, 233, 0.3);
             padding: 25px;
             border-radius: 8px;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            backdrop-filter: blur(5px);
         }
 
         .project-card::before {
@@ -195,7 +204,7 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(14, 165, 233, 0.1), transparent);
+            background: linear-gradient(90deg, transparent, rgba(14, 165, 233, 0.15), transparent);
             transition: left 0.5s ease;
             pointer-events: none;
         }
@@ -206,8 +215,8 @@
 
         .project-card:hover {
             border-color: var(--accent);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(14, 165, 233, 0.1);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(14, 165, 233, 0.2);
         }
 
         .project-title {
@@ -232,13 +241,19 @@
         }
 
         .tech-tag {
-            background: rgba(14, 165, 233, 0.2);
+            background: rgba(14, 165, 233, 0.25);
             color: var(--accent);
             padding: 4px 10px;
             border-radius: 4px;
             font-size: 0.8rem;
             font-family: 'JetBrains Mono', monospace;
-            border: 1px solid rgba(14, 165, 233, 0.4);
+            border: 1px solid rgba(14, 165, 233, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .tech-tag:hover {
+            background: rgba(14, 165, 233, 0.4);
+            box-shadow: 0 0 8px rgba(14, 165, 233, 0.4);
         }
 
         .project-links {
@@ -251,7 +266,7 @@
             text-decoration: none;
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.85rem;
-            transition: color 0.3s ease;
+            transition: all 0.3s ease;
             padding: 6px 12px;
             border: 1px solid var(--accent);
             border-radius: 4px;
@@ -261,6 +276,7 @@
         .project-link:hover {
             background: var(--accent);
             color: var(--primary);
+            box-shadow: 0 0 12px rgba(14, 165, 233, 0.5);
         }
 
         /* Skills */
@@ -271,10 +287,18 @@
         }
 
         .skill-category {
-            background: var(--secondary);
+            background: rgba(30, 41, 59, 0.8);
             padding: 20px;
             border-radius: 8px;
             border-left: 3px solid var(--accent);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .skill-category:hover {
+            transform: translateX(5px);
+            border-left-color: var(--accent-alt);
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.2);
         }
 
         .skill-category h3 {
@@ -293,6 +317,7 @@
             font-size: 0.95rem;
             padding-left: 10px;
             position: relative;
+            transition: all 0.3s ease;
         }
 
         .skill-list li::before {
@@ -302,13 +327,22 @@
             color: var(--accent-alt);
         }
 
+        .skill-list li:hover {
+            color: var(--text);
+            padding-left: 15px;
+        }
+
         /* Footer */
         footer {
             text-align: center;
             padding: 40px 20px;
-            border-top: 1px solid var(--border);
+            border-top: 1px solid rgba(51, 65, 85, 0.5);
             color: var(--text-dim);
             font-size: 0.9rem;
+            backdrop-filter: blur(10px);
+            background: rgba(15, 23, 42, 0.7);
+            position: relative;
+            z-index: 1;
         }
 
         .social-links {
@@ -321,11 +355,12 @@
         .social-links a {
             color: var(--accent);
             text-decoration: none;
-            transition: color 0.3s ease;
+            transition: all 0.3s ease;
         }
 
         .social-links a:hover {
             color: var(--accent-alt);
+            text-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
         }
 
         /* CTA Button */
@@ -337,17 +372,18 @@
             border-radius: 6px;
             text-decoration: none;
             font-weight: 600;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: all 0.3s ease;
             margin-top: 20px;
             border: none;
             cursor: pointer;
             font-family: 'Merriweather', serif;
             font-size: 1rem;
+            box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3);
         }
 
         .cta-button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 25px rgba(14, 165, 233, 0.3);
+            transform: scale(1.08);
+            box-shadow: 0 8px 25px rgba(14, 165, 233, 0.5);
         }
 
         /* Responsive */
@@ -367,180 +403,312 @@
             .projects-grid {
                 grid-template-columns: 1fr;
             }
+
+            section {
+                padding: 25px;
+            }
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Jason Lewis</h1>
-        <p class="subtitle">Physics Student | Data Science & Statistics</p>
-        <nav class="nav-links">
-            <a href="#about">About</a>
-            <a href="#projects">Projects</a>
-            <a href="#skills">Skills</a>
-            <a href="#contact">Contact</a>
-        </nav>
-    </header>
+    <canvas id="particleCanvas"></canvas>
 
-    <main class="container">
-        <!-- ABOUT SECTION -->
-        <section id="about">
-            <h2>About</h2>
-            <p class="about-text">
-                I'm a first-year physics student at the University of Southampton with a passion for data science and statistical analysis. 
-                I combine physics fundamentals with modern data analysis techniques to solve real-world problems. 
-                I'm interested in computational physics, particle physics and data visualisation.
-            </p>
-            <p class="about-text">
-                When I'm not working on physics problems or analysing data, you'll find me in the forests with various conservation societies or bat monitoring groups.
-            </p>
-        </section>
+    <div class="content-wrapper">
+        <header>
+            <h1>Jason Lewis</h1>
+            <p class="subtitle">Physics Student | Data Science & Statistics</p>
+            <nav class="nav-links">
+                <a href="#about">About</a>
+                <a href="#projects">Projects</a>
+                <a href="#skills">Skills</a>
+                <a href="#contact">Contact</a>
+            </nav>
+        </header>
 
-        <!-- PROJECTS SECTION -->
-        <section id="projects">
-            <h2>Projects</h2>
-            <div class="projects-grid">
-                <!-- PROJECT 1 - PYTHON SEARCH ENGINE -->
-                <div class="project-card">
-    <h3 class="project-title">Python Search Engine</h3>
-    <p class="project-description">
-        Built a web search engine in Python implementing core search algorithms and indexing techniques. 
-        Demonstrates information retrieval concepts and data structure optimisation.
-    </p>
-    <div class="project-tech">
-        <span class="tech-tag">Python</span>
-        <span class="tech-tag">Web Scraping</span>
-        <span class="tech-tag">Algorithms</span>
-        <span class="tech-tag">Data Structures</span>
-    </div>
-    <div class="project-links">
-        <a href="https://github.com/ConstantlyTrying989/Prospective_Python_Search_Engine" class="project-link" target="_blank">GitHub</a>
-    </div>
-</div>
+        <main class="container">
+            <!-- ABOUT SECTION -->
+            <section id="about">
+                <h2>About</h2>
+                <p class="about-text">
+                    I'm a first-year physics student at the University of Southampton with a passion for data science and statistical analysis. 
+                    I combine physics fundamentals with modern data analysis techniques to solve real-world problems. 
+                    I'm interested in computational physics, particle physics and data visualisation.
+                </p>
+                <p class="about-text">
+                    When I'm not working on physics problems or analysing data, you'll find me in the forests with various conservation societies or bat monitoring groups.
+                </p>
+            </section>
 
-                <!-- PROJECT 2 - BOLTZMANN DISTRIBUTION LAB -->
-<div class="project-card">
-    <h3 class="project-title">Boltzmann Distribution Lab</h3>
-    <p class="project-description">
-        Physics laboratory analysis of Boltzmann distribution using experimental data. 
-        Performed statistical analysis and hypothesis testing to validate theoretical predictions against empirical results.
-    </p>
-    <div class="project-tech">
-        <span class="tech-tag">Python</span>
-        <span class="tech-tag">NumPy</span>
-        <span class="tech-tag">Matplotlib</span>
-        <span class="tech-tag">Statistics</span>
-        <span class="tech-tag">Physics</span>
-    </div>
-    <div class="project-links">
-        <a href="https://github.com/ConstantlyTrying989/Boltzmann_distribution_lab" class="project-link" target="_blank">GitHub</a>
-    </div>
-</div>
+            <!-- PROJECTS SECTION -->
+            <section id="projects">
+                <h2>Projects</h2>
+                <div class="projects-grid">
+                    <!-- PROJECT 1 - PYTHON SEARCH ENGINE -->
+                    <div class="project-card">
+                        <h3 class="project-title">Python Search Engine</h3>
+                        <p class="project-description">
+                            Built a web search engine in Python implementing core search algorithms and indexing techniques. 
+                            Demonstrates information retrieval concepts and data structure optimisation.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Web Scraping</span>
+                            <span class="tech-tag">Algorithms</span>
+                            <span class="tech-tag">Data Structures</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/ConstantlyTrying989/Prospective_Python_Search_Engine" class="project-link" target="_blank">GitHub</a>
+                        </div>
+                    </div>
 
-                <!-- PROJECT 3 - ENVIRONMENTAL DATA ANALYSIS -->
-<div class="project-card">
-    <h3 class="project-title">Environmental Data Analysis</h3>
-    <p class="project-description">
-        Analysis of environmental and climate data from South-East England. 
-        Used statistical methods to identify trends, patterns, and correlations in environmental metrics.
-    </p>
-    <div class="project-tech">
-        <span class="tech-tag">Python</span>
-        <span class="tech-tag">Pandas</span>
-        <span class="tech-tag">Data Visualization</span>
-        <span class="tech-tag">Statistics</span>
-        <span class="tech-tag">Environmental Science</span>
-    </div>
-    <div class="project-links">
-        <a href="https://github.com/ConstantlyTrying989/Environment_Data_South-East_England" class="project-link" target="_blank">GitHub</a>
-    </div>
-</div>
+                    <!-- PROJECT 2 - BOLTZMANN DISTRIBUTION LAB -->
+                    <div class="project-card">
+                        <h3 class="project-title">Boltzmann Distribution Lab</h3>
+                        <p class="project-description">
+                            Physics laboratory analysis of Boltzmann distribution using experimental data. 
+                            Performed statistical analysis and hypothesis testing to validate theoretical predictions against empirical results.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">NumPy</span>
+                            <span class="tech-tag">Matplotlib</span>
+                            <span class="tech-tag">Statistics</span>
+                            <span class="tech-tag">Physics</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/ConstantlyTrying989/Boltzmann_distribution_lab" class="project-link" target="_blank">GitHub</a>
+                        </div>
+                    </div>
 
-                <!-- PROJECT 4 - LINGUISTICS TEXT ANALYSIS -->
-<div class="project-card">
-    <h3 class="project-title">Linguistics Text Analysis</h3>
-    <p class="project-description">
-        Comprehensive text analysis project applying NLP techniques to linguistic data. 
-        Analysed linguistic patterns, frequency distributions, and text statistics across multiple datasets.
-    </p>
-    <div class="project-tech">
-        <span class="tech-tag">Python</span>
-        <span class="tech-tag">NLP</span>
-        <span class="tech-tag">Text Processing</span>
-        <span class="tech-tag">Data Analysis</span>
-        <span class="tech-tag">Pandas</span>
-    </div>
-    <div class="project-links">
-        <a href="https://github.com/ConstantlyTrying989/Linguistics_Text_Analysis" class="project-link" target="_blank">GitHub</a>
-    </div>
-</div>
-        <!-- SKILLS SECTION -->
-        <section id="skills">
-            <h2>Skills & Tools</h2>
-            <div class="skills-grid">
-                <div class="skill-category">
-                    <h3>Languages</h3>
-                    <ul class="skill-list">
-                        <li>Python (NumPy, Pandas, SciPy)</li>
-                        <li>R (ggplot2, tidyverse)</li>
-                        <li>SQL</li>
-                        <li>MATLAB</li>
-                    </ul>
+                    <!-- PROJECT 3 - ENVIRONMENTAL DATA ANALYSIS -->
+                    <div class="project-card">
+                        <h3 class="project-title">Environmental Data Analysis</h3>
+                        <p class="project-description">
+                            Analysis of environmental and climate data from South-East England. 
+                            Used statistical methods to identify trends, patterns, and correlations in environmental metrics.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Pandas</span>
+                            <span class="tech-tag">Data Visualization</span>
+                            <span class="tech-tag">Statistics</span>
+                            <span class="tech-tag">Environmental Science</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/ConstantlyTrying989/Environment_Data_South-East_England" class="project-link" target="_blank">GitHub</a>
+                        </div>
+                    </div>
+
+                    <!-- PROJECT 4 - LINGUISTICS TEXT ANALYSIS -->
+                    <div class="project-card">
+                        <h3 class="project-title">Linguistics Text Analysis</h3>
+                        <p class="project-description">
+                            Comprehensive text analysis project applying NLP techniques to linguistic data. 
+                            Analysed linguistic patterns, frequency distributions, and text statistics across multiple datasets.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">NLP</span>
+                            <span class="tech-tag">Text Processing</span>
+                            <span class="tech-tag">Data Analysis</span>
+                            <span class="tech-tag">Pandas</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://github.com/ConstantlyTrying989/Linguistics_Text_Analysis" class="project-link" target="_blank">GitHub</a>
+                        </div>
+                    </div>
                 </div>
+            </section>
 
-                <div class="skill-category">
-                    <h3>Data Science</h3>
-                    <ul class="skill-list">
-                        <li>Statistical Analysis</li>
-                        <li>Data Visualization</li>
-                        <li>Machine Learning Basics</li>
-                        <li>Time Series Analysis</li>
-                    </ul>
+            <!-- SKILLS SECTION -->
+            <section id="skills">
+                <h2>Skills & Tools</h2>
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <h3>Languages</h3>
+                        <ul class="skill-list">
+                            <li>Python (NumPy, Pandas, SciPy)</li>
+                            <li>R (ggplot2, tidyverse)</li>
+                            <li>SQL</li>
+                            <li>MATLAB</li>
+                        </ul>
+                    </div>
+
+                    <div class="skill-category">
+                        <h3>Data Science</h3>
+                        <ul class="skill-list">
+                            <li>Statistical Analysis</li>
+                            <li>Data Visualization</li>
+                            <li>Machine Learning Basics</li>
+                            <li>Time Series Analysis</li>
+                        </ul>
+                    </div>
+
+                    <div class="skill-category">
+                        <h3>Physics & Analysis</h3>
+                        <ul class="skill-list">
+                            <li>Experimental Design</li>
+                            <li>Error Analysis</li>
+                            <li>Computational Physics</li>
+                            <li>LaTeX</li>
+                        </ul>
+                    </div>
+
+                    <div class="skill-category">
+                        <h3>Tools & Platforms</h3>
+                        <ul class="skill-list">
+                            <li>Jupyter Notebooks</li>
+                            <li>Git & GitHub</li>
+                            <li>Linux/Bash</li>
+                            <li>Google Colab</li>
+                        </ul>
+                    </div>
                 </div>
+            </section>
 
-                <div class="skill-category">
-                    <h3>Physics & Analysis</h3>
-                    <ul class="skill-list">
-                        <li>Experimental Design</li>
-                        <li>Error Analysis</li>
-                        <li>Computational Physics</li>
-                        <li>LaTeX</li>
-                    </ul>
+            <!-- CONTACT SECTION -->
+            <section id="contact">
+                <h2>Get In Touch</h2>
+                <p class="about-text">
+                    I'm always interested in discussing physics, data science, and new opportunities. 
+                    Feel free to reach out!
+                </p>
+                <div class="social-links">
+                    <a href="mailto:lewisjd2007@gmail.com">Email</a>
+                    <a href="https://github.com/ConstantlyTrying989" target="_blank">GitHub</a>
+                    <a href="https://linkedin.com/in/jason-lewis-physics" target="_blank">LinkedIn</a>
                 </div>
+                <a href="https://github.com/ConstantlyTrying989/constantlytrying989.github.io/raw/main/Jason_Lewis_CV.pdf" class="cta-button" target="_blank">
+                    Download CV
+                </a>
+            </section>
+        </main>
 
-                <div class="skill-category">
-                    <h3>Tools & Platforms</h3>
-                    <ul class="skill-list">
-                        <li>Jupyter Notebooks</li>
-                        <li>Git & GitHub</li>
-                        <li>Linux/Bash</li>
-                        <li>Google Colab</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
+        <footer>
+            <p>Built with HTML & CSS. Hosted on GitHub Pages.</p>
+            <p>&copy; 2026 Jason Lewis. All rights reserved.</p>
+        </footer>
+    </div>
 
-        <!-- CONTACT SECTION -->
-        <section id="contact">
-            <h2>Get In Touch</h2>
-            <p class="about-text">
-                I'm always interested in discussing physics, data science, and new opportunities. 
-                Feel free to reach out!
-            </p>
-            <div class="social-links">
-                <a href="mailto:lewisjd2007@gmail.com">Email</a>
-                <a href="https://github.com/ConstantlyTrying989" target="_blank">GitHub</a>
-                <a href="https://linkedin.com/in/jason-lewis-physics" target="_blank">LinkedIn</a>
-            </div>
-            <a href="https://github.com/ConstantlyTrying989/constantlytrying989.github.io/raw/main/Jason_Lewis_CV.pdf" class="cta-button" target="_blank">
-                Download CV
-            </a>
-        </section>
-    </main>
+    <script>
+        class Particle {
+            constructor(canvas) {
+                this.canvas = canvas;
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.radius = Math.random() * 2 + 1;
+                this.vx = (Math.random() - 0.5) * 3;
+                this.vy = (Math.random() - 0.5) * 3;
+                this.color = `hsl(${190 + Math.random() * 30}, ${70 + Math.random() * 20}%, ${50 + Math.random() * 20}%)`;
+            }
 
-    <footer>
-        <p>Built with HTML & CSS. Hosted on GitHub Pages.</p>
-        <p>&copy; 2026 Jason Lewis. All rights reserved.</p>
-    </footer>
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                // Bounce off walls
+                if (this.x - this.radius < 0 || this.x + this.radius > this.canvas.width) {
+                    this.vx *= -1;
+                    this.x = Math.max(this.radius, Math.min(this.canvas.width - this.radius, this.x));
+                }
+                if (this.y - this.radius < 0 || this.y + this.radius > this.canvas.height) {
+                    this.vy *= -1;
+                    this.y = Math.max(this.radius, Math.min(this.canvas.height - this.radius, this.y));
+                }
+            }
+
+            draw(ctx) {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+                ctx.strokeStyle = this.color;
+                ctx.lineWidth = 0.5;
+                ctx.stroke();
+            }
+
+            collidesWith(other) {
+                const dx = other.x - this.x;
+                const dy = other.y - this.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                return distance < this.radius + other.radius;
+            }
+
+            resolveCollision(other) {
+                const dx = other.x - this.x;
+                const dy = other.y - this.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance === 0) return;
+
+                const nx = dx / distance;
+                const ny = dy / distance;
+
+                const dvx = other.vx - this.vx;
+                const dvy = other.vy - this.vy;
+                const dvDotN = dvx * nx + dvy * ny;
+
+                if (dvDotN >= 0) return;
+
+                const impulse = -dvDotN * 0.8;
+                this.vx -= impulse * nx;
+                this.vy -= impulse * ny;
+                other.vx += impulse * nx;
+                other.vy += impulse * ny;
+
+                const overlap = (this.radius + other.radius - distance) / 2;
+                this.x -= overlap * nx;
+                this.y -= overlap * ny;
+                other.x += overlap * nx;
+                other.y += overlap * ny;
+            }
+        }
+
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            
+            if (particles.length === 0) {
+                const numParticles = Math.min(80, Math.floor(window.innerWidth / 15));
+                for (let i = 0; i < numParticles; i++) {
+                    particles.push(new Particle(canvas));
+                }
+            }
+        }
+
+        function animate() {
+            // Clear with semi-transparent background for trail effect
+            ctx.fillStyle = 'rgba(15, 23, 42, 0.1)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Update and draw particles
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw(ctx);
+
+                // Check collisions with other particles
+                for (let j = i + 1; j < particles.length; j++) {
+                    if (particles[i].collidesWith(particles[j])) {
+                        particles[i].resolveCollision(particles[j]);
+                    }
+                }
+            }
+
+            // Draw container outline
+            ctx.strokeStyle = 'rgba(14, 165, 233, 0.2)';
+            ctx.lineWidth = 1;
+            ctx.strokeRect(0, 0, canvas.width, canvas.height);
+
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+        animate();
+    </script>
 </body>
 </html>
